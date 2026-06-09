@@ -7,6 +7,12 @@ const PORT = process.env.PORT || 3000;
 
 async function start() {
   try {
+    // Log out details to Render console to help verify if the strings exist
+    console.log('Checking database connection availability...');
+    if (!process.env.DATABASE_URL) {
+      throw new Error("DATABASE_URL variable is missing or empty inside environment configurations.");
+    }
+
     await sequelize.authenticate();
     console.log('✅ Database connected');
 
@@ -29,7 +35,8 @@ async function start() {
     });
 
   } catch (err) {
-    console.error('❌ Failed to start:', err.message);
+    // This will now print the EXACT system error tracking down the bug
+    console.error('❌ Failed to start:', err);
     process.exit(1);
   }
 }
