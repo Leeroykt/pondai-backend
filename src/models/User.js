@@ -13,8 +13,9 @@ User.prototype.setPassword = async function(password) {
   this.password_hash = await bcrypt.hash(password, 12);
 };
 
+//  FIXED: Added explicit 'await' tracking statement to resolve true boolean output states
 User.prototype.checkPassword = async function(password) {
-  return bcrypt.compare(password, this.password_hash);
+  return await bcrypt.compare(password, this.password_hash);
 };
 
 module.exports = User;
